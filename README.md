@@ -1,4 +1,7 @@
 # in_time
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/in_time/Lobby)
+
+### Note: The project is in its very initial stage
 
 #### A cross platform mobile application to be always in time.
 The app will help students to get all the work done in time and track his activities
@@ -21,5 +24,6 @@ It will also show motiviational quotes with todos to be done so that the student
 
 * Fork the repository
 * Clone the repoository
-`git clone https://`
+`git clone https://github.com/<YOUR_USERNAME>/in-time`
+replace <YOUR_USERNAME> with your username
 * run the app `flutter run` 

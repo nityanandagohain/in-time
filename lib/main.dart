@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_time/custom_drawer.dart';
 
 void main() => runApp(MyApp());
 
@@ -35,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(child: CustomDrawer(),),
       appBar: AppBar(
         title: Text(widget.title),
       ),

@@ -38,7 +38,17 @@ class _HomePageState extends State<HomePage>
     Colors.purple,
     Colors.redAccent
   ];
-
+  
+  List<String> _days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+  
   @override
   void initState() {
     super.initState();
@@ -107,6 +117,7 @@ class _HomePageState extends State<HomePage>
               rnd = new Random();
               int r = 0 + rnd.nextInt(_colors.length - 0);
               clr = _colors[r];
+              
             });
           },
           controller: pageViewController,
@@ -148,7 +159,7 @@ class _HomePageState extends State<HomePage>
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Text(
-                                      'Monday',
+                                      _days[index],
                                       maxLines: 1,
                                       softWrap: true,
                                       style: TextStyle(

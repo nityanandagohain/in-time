@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:in_time/screens/homePage.dart';
+import 'package:in_time/ui/screens/homePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,6 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'In Time',
+      home: HomePage(),
     );
   }
 }

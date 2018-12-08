@@ -10,7 +10,8 @@ It will help the student keep track of the number of class he/she has missed.
 It will also show motiviational quotes with todos to be done so that the student stays motivated.
 
 ![img](./assets/img/wire.png)
-
+## Architecture used:
+[Bloc Pattern](https://medium.com/flutterpub/architecting-your-flutter-project-bd04e144a8f1)
 
 ## TODOS:
 * Create login using firebase
@@ -19,11 +20,12 @@ It will also show motiviational quotes with todos to be done so that the student
 * Store the data in firebase
 * Push notifications for each class and todos
 * Register wheather the class is attended or not
+* Maintain Bloc Pattern
 
 ## Contributing Guide:
 
 * Fork the repository
-* Clone the repoository
+* Clone the repository
 `git clone https://github.com/<YOUR_USERNAME>/in-time`
 replace <YOUR_USERNAME> with your username
 * run the app `flutter run` 

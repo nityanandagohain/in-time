@@ -20,11 +20,9 @@ class _HomePageState extends State<HomePage>
   List data;
   
   Future getdata() async{
-    http.Response response= await http.get(Uri.encodeFull("https://talaikis.com/api/quotes/"));
-    item=json.decode(response.body);
-    setState(() {
-      data=item["quotes"];
-    });
+    http.Response response= await http.get(Uri.encodeFull("https://talaikis.com/api/quotes/")).then((response)
+    { item=json.decode(response.body);
+    setState(() { data=item["quotes"]; });});
     debugPrint(data.toString());
   }
   

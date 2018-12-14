@@ -19,12 +19,17 @@ class _HomePageState extends State<HomePage>
   Map item;
   List data;
   
-  Future getdata() async{
-    http.Response response= await http.get(Uri.encodeFull("https://talaikis.com/api/quotes/")).then((response)
-    { item=json.decode(response.body);
-    setState(() { data=item["quotes"]; });});
-    debugPrint(data.toString());
+  Future getdata() async {
+    http.Response response = await http.get(
+        Uri.encodeFull("http://quotes.rest/qod.json?category=inspire"),
+        headers: {"Accept": "application/json"
+        });
+    this.setState(() {
+      item= json.decode(response.body);
+      data = item["quotes"];
+    });
   }
+
   
   PageController pageViewController;
   String str;
@@ -65,7 +70,8 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-    getdata();
+    this.getdata();
+
     pageViewController = new PageController(initialPage: 0);
     setState(() {
       Random rnd;

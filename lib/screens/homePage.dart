@@ -2,6 +2,9 @@ import 'dart:math';
 import 'dart:core';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
 
 //drawer
 import './drawer.dart';
@@ -13,6 +16,21 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with TickerProviderStateMixin {
+  Map item;
+  List data;
+  
+  Future getdata() async {
+    http.Response response = await http.get(
+        Uri.encodeFull("http://quotes.rest/qod.json?category=inspire"),
+        headers: {"Accept": "application/json"
+        });
+    this.setState(() {
+      item= json.decode(response.body);
+      data = item["quotes"];
+    });
+  }
+
+  
   PageController pageViewController;
   String str;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -52,6 +70,8 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
+    this.getdata();
+
     pageViewController = new PageController(initialPage: 0);
     setState(() {
       Random rnd;
@@ -169,16 +189,21 @@ class _HomePageState extends State<HomePage>
                                     ),
                                   ],
                                 ),
+                                data != null?
                                 Padding(
                                   padding: const EdgeInsets.only(top: 15.0),
-                                  child: Text(
-                                    'QUOTE:',
-                                    softWrap: true,
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w300),
+                                  child: ListView.builder(
+                                    itemCount: data.length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return ListTile(
+                                        title: Text(data[index]["quote"]),
+                                      );
+                                    },
                                   ),
-                                ),
+                                ):
+                                    Container(),
+
+
                               ],
                             ),
                           ),

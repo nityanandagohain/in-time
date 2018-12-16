@@ -106,7 +106,8 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      drawer: drawerLeft(),
+      drawer: drawerLeft(context),
+      
       appBar: AppBar(
           title: Text(
             "IN TIME",

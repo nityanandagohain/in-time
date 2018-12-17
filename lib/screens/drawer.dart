@@ -4,15 +4,10 @@ String otherProfilePicture = "https://banner2.kisspng.com/20180529/geg/kisspng-f
 String mainProfilePicture = "https://st.depositphotos.com/1734074/5142/v/950/depositphotos_51426031-stock-illustration-vector-woman-avatar-flat-round.jpg";
 
 Widget drawerLeft(BuildContext context) {
-  
     return Drawer (
-      
       child : ListView(
-         
-
         // Important: Remove any padding from the ListView.
         children: <Widget>[
-
           new Container(
             child: new UserAccountsDrawerHeader(
             accountName: Text("John Doe"),
@@ -26,7 +21,6 @@ Widget drawerLeft(BuildContext context) {
             currentAccountPicture: CircleAvatar(
               backgroundImage: new NetworkImage(mainProfilePicture),
             ),
-
             otherAccountsPictures: <Widget>[
               new GestureDetector(
                 child: new CircleAvatar(
@@ -34,17 +28,12 @@ Widget drawerLeft(BuildContext context) {
                 ),
               )
             ],
-          
           ),
       ),
-
-      
       new Container(
         color: Colors.yellow[900],
           child : ListTile(
-            
             title: Text('Home'),
-            
             onTap: () {
               Navigator.pop(context);
             },
@@ -63,7 +52,6 @@ Widget drawerLeft(BuildContext context) {
             leading: Icon(Icons.info_outline),
           ),
           ),
-
           new Container(
           color: Colors.yellow[700],
           child :ListTile(
@@ -86,18 +74,10 @@ Widget drawerLeft(BuildContext context) {
               Navigator.pop(context);
             },
             leading: Icon(Icons.settings),
-
           ),
           ),
-      
         ],
-
-        
       ),
-      
-    
     );
-    
-    
   }
   

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 Widget drawerLeft(BuildContext context) {
     return Drawer (
@@ -71,6 +72,22 @@ Widget drawerLeft(BuildContext context) {
               Navigator.pop(context);
             },
             leading: Icon(Icons.settings),
+          ),
+          ),
+          new Container(
+          color: Colors.yellow[500],
+          child :ListTile(
+            title: Text('Signout'),
+            onTap: () {
+              FirebaseAuth.instance.signOut().then((value){
+                          Navigator.of(context).pushReplacementNamed('landingpage');
+                        })
+                        .catchError((e){
+                          print(e);
+                        });
+              Navigator.pop(context);
+            },
+            leading: Icon(Icons.lock_open),
           ),
           ),
         ],

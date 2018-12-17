@@ -26,4 +26,11 @@ It will also show motiviational quotes with todos to be done so that the student
 * Clone the repoository
 `git clone https://github.com/<YOUR_USERNAME>/in-time`
 replace <YOUR_USERNAME> with your username
+* Make Firebase Project
+    -Create new Project 
+    -Add Firebase to your app
+        -Enter Package name as `com.example.intime`
+        -Add your SHA-1 key (Very Important)
+        -Download COnfig file `google.services.json`
+    -Add the config file into Android => App =>(Paste it here)      
 * run the app `flutter run` 

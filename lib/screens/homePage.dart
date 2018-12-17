@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:core';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
+import 'package:in_time/screens/enterTimetable.dart';
 
 //drawer
 import './drawer.dart';
@@ -102,7 +103,16 @@ class _HomePageState extends State<HomePage>
             onPressed: () {
               scaffoldKey.currentState.openDrawer();
             },
-          )),
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.forward),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => TimeTableMenu()));
+              },
+            ),
+          ],
+          ),
       key: scaffoldKey,
       body: AnimatedContainer(
         padding: EdgeInsets.only(top: 50.0),

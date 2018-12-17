@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'homePage.dart';
 
 Widget drawerLeft() {
     return Drawer(
@@ -42,7 +44,14 @@ Widget drawerLeft() {
               // Update the state of the app
               // ...
             },
-            leading: Icon(Icons.settings),
+            leading: Icon(Icons.settings),),
+            ListTile(
+            title: Text('Logout'),
+            onTap: () {
+              // Update the state of the app
+              // ...
+            },
+            leading: Icon(Icons.add_circle_outline),
 
           ),
 

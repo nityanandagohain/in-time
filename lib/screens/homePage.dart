@@ -8,18 +8,21 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
-
 //drawer
+
+import 'package:in_time/services/constants.dart';
 import './drawer.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
+
+   
 }
 
 class _HomePageState extends State<HomePage>
     with TickerProviderStateMixin {
-  Map item;
+       Map item;
   List data;
   
   Future getdata() async {
@@ -32,11 +35,10 @@ class _HomePageState extends State<HomePage>
       data = item["quotes"];
     });
   }
-
-  
   PageController pageViewController;
   String str;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+   final GlobalKey _menuKey = new GlobalKey();
 
 
   Color clr = Colors.orange;
@@ -73,8 +75,7 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-    this.getdata();
-
+     this.getdata();
     pageViewController = new PageController(initialPage: 0);
     setState(() {
       Random rnd;
@@ -115,6 +116,17 @@ class _HomePageState extends State<HomePage>
             "IN TIME",
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
           ),
+         actions: <Widget>[
+          PopupMenuButton<String>(
+           
+            itemBuilder: (BuildContext context){
+              return Constants.choices.map((String choice){
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();},
+               onSelected: choiceAction,),],
           backgroundColor: clr,
           elevation: 0.0,
           leading: MaterialButton(
@@ -128,6 +140,7 @@ class _HomePageState extends State<HomePage>
           )),
       key: scaffoldKey,
       body: AnimatedContainer(
+        
         padding: EdgeInsets.only(top: 50.0),
         duration: Duration(milliseconds: 1000),
         curve: Curves.ease,
@@ -192,7 +205,7 @@ class _HomePageState extends State<HomePage>
                                     ),
                                   ],
                                 ),
-                                data != null?
+                                 data != null?
                                 Padding(
                                   padding: const EdgeInsets.only(top: 15.0),
                                   child: ListView.builder(
@@ -207,6 +220,7 @@ class _HomePageState extends State<HomePage>
                                     Container(),
 
 
+                             
                               ],
                             ),
                           ),
@@ -221,5 +235,17 @@ class _HomePageState extends State<HomePage>
         ),
       ),
     );
+
+  }
+   void choiceAction(String choice){
+     
+    
+      FirebaseAuth.instance.signOut().then((value){
+                          Navigator.of(context).pushReplacementNamed('landingpage');
+                        })
+                        .catchError((e){
+                          print(e);
+                        });
+    
   }
 }

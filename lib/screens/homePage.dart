@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
+import 'package:in_time/blocs/quotes_bloc.dart';
+import 'package:in_time/models/quotes_model.dart';
 import 'dart:convert';
 import 'dart:async';
 
@@ -16,30 +18,16 @@ import './drawer.dart';
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
-
-   
 }
 
-class _HomePageState extends State<HomePage>
-    with TickerProviderStateMixin {
-       Map item;
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  Map item;
   List data;
-  
-  Future getdata() async {
-    http.Response response = await http.get(
-        Uri.encodeFull("http://quotes.rest/qod.json?category=inspire"),
-        headers: {"Accept": "application/json"
-        });
-    this.setState(() {
-      item= json.decode(response.body);
-      data = item["quotes"];
-    });
-  }
+
   PageController pageViewController;
   String str;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-   final GlobalKey _menuKey = new GlobalKey();
-
+  final GlobalKey _menuKey = new GlobalKey();
 
   Color clr = Colors.orange;
   var pos = 20.0;
@@ -61,7 +49,7 @@ class _HomePageState extends State<HomePage>
     Colors.purple,
     Colors.redAccent
   ];
-  
+
   List<String> _days = [
     "Monday",
     "Tuesday",
@@ -71,11 +59,13 @@ class _HomePageState extends State<HomePage>
     "Saturday",
     "Sunday",
   ];
-  
+
   @override
   void initState() {
     super.initState();
-     this.getdata();
+//     this.getdata();
+    bloc.fetchAllMovies();
+
     pageViewController = new PageController(initialPage: 0);
     setState(() {
       Random rnd;
@@ -116,17 +106,19 @@ class _HomePageState extends State<HomePage>
             "IN TIME",
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
           ),
-         actions: <Widget>[
-          PopupMenuButton<String>(
-           
-            itemBuilder: (BuildContext context){
-              return Constants.choices.map((String choice){
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
-              }).toList();},
-               onSelected: choiceAction,),],
+          actions: <Widget>[
+            PopupMenuButton<String>(
+              itemBuilder: (BuildContext context) {
+                return Constants.choices.map((String choice) {
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: Text(choice),
+                  );
+                }).toList();
+              },
+              onSelected: choiceAction,
+            ),
+          ],
           backgroundColor: clr,
           elevation: 0.0,
           leading: MaterialButton(
@@ -140,7 +132,6 @@ class _HomePageState extends State<HomePage>
           )),
       key: scaffoldKey,
       body: AnimatedContainer(
-        
         padding: EdgeInsets.only(top: 50.0),
         duration: Duration(milliseconds: 1000),
         curve: Curves.ease,
@@ -153,7 +144,6 @@ class _HomePageState extends State<HomePage>
               rnd = new Random();
               int r = 0 + rnd.nextInt(_colors.length - 0);
               clr = _colors[r];
-              
             });
           },
           controller: pageViewController,
@@ -205,22 +195,21 @@ class _HomePageState extends State<HomePage>
                                     ),
                                   ],
                                 ),
-                                 data != null?
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 15.0),
-                                  child: ListView.builder(
-                                    itemCount: data.length,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return ListTile(
-                                        title: Text(data[index]["quote"]),
-                                      );
+                                Container(
+                                  child: StreamBuilder(
+                                    stream: bloc.allQuotes,
+                                    builder: (context, AsyncSnapshot<QuotesModel> snapshot) {
+                                      if (snapshot.hasData) {
+                                        print(snapshot.data.quote);
+                                        return Text(snapshot.data.quote);
+                                      } else if (snapshot.hasError) {
+                                        print(snapshot.hasData);
+                                        return Text(snapshot.error.toString());
+                                      }
+                                      return Center(child: CircularProgressIndicator());
                                     },
-                                  ),
-                                ):
-                                    Container(),
-
-
-                             
+                                  )
+                                )
                               ],
                             ),
                           ),
@@ -235,17 +224,13 @@ class _HomePageState extends State<HomePage>
         ),
       ),
     );
-
   }
-   void choiceAction(String choice){
-     
-    
-      FirebaseAuth.instance.signOut().then((value){
-                          Navigator.of(context).pushReplacementNamed('landingpage');
-                        })
-                        .catchError((e){
-                          print(e);
-                        });
-    
+
+  void choiceAction(String choice) {
+    FirebaseAuth.instance.signOut().then((value) {
+      Navigator.of(context).pushReplacementNamed('landingpage');
+    }).catchError((e) {
+      print(e);
+    });
   }
 }

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "194777210965",
+    "firebase_url": "https://in-time-9f681.firebaseio.com",
+    "project_id": "in-time-9f681",
+    "storage_bucket": "in-time-9f681.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194777210965:android:6636172a3c7c41b9",
+        "android_client_info": {
+          "package_name": "com.example.intime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194777210965-kmbkdlnek3bbkalh64iob19ef0b1nj6t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCA77-pCegD7TDuv3tL78o0FppPMCC_fA0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

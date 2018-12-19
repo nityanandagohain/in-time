@@ -100,12 +100,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      drawer: drawerLeft(),
+      drawer: drawerLeft(context),
       appBar: AppBar(
           title: Text(
             "IN TIME",
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
           ),
+
           actions: <Widget>[
             PopupMenuButton<String>(
               itemBuilder: (BuildContext context) {
@@ -119,6 +120,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               onSelected: choiceAction,
             ),
           ],
+
           backgroundColor: clr,
           elevation: 0.0,
           leading: MaterialButton(
@@ -226,6 +228,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
+
   void choiceAction(String choice) {
     FirebaseAuth.instance.signOut().then((value) {
       Navigator.of(context).pushReplacementNamed('landingpage');
@@ -233,4 +236,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       print(e);
     });
   }
+=======
+   
+
 }

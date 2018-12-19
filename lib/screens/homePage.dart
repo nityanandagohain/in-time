@@ -110,23 +110,12 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      drawer: drawerLeft(),
+      drawer: drawerLeft(context),
       appBar: AppBar(
           title: Text(
             "IN TIME",
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
           ),
-         actions: <Widget>[
-          PopupMenuButton<String>(
-           
-            itemBuilder: (BuildContext context){
-              return Constants.choices.map((String choice){
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
-              }).toList();},
-               onSelected: choiceAction,),],
           backgroundColor: clr,
           elevation: 0.0,
           leading: MaterialButton(
@@ -237,15 +226,5 @@ class _HomePageState extends State<HomePage>
     );
 
   }
-   void choiceAction(String choice){
-     
-    
-      FirebaseAuth.instance.signOut().then((value){
-                          Navigator.of(context).pushReplacementNamed('landingpage');
-                        })
-                        .catchError((e){
-                          print(e);
-                        });
-    
-  }
+   
 }

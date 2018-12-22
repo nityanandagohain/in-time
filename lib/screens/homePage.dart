@@ -19,6 +19,8 @@ class _HomePageState extends State<HomePage>
   String str;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
+  
+
 
   Color clr = Colors.orange;
   var pos = 20.0;
@@ -55,10 +57,12 @@ class _HomePageState extends State<HomePage>
     "Sunday",
   ];
   
+  
   @override
   void initState() {
     super.initState();
     timeTableMenu = new TimeTableMenu(this.callback);
+
     pageViewController = new PageController(initialPage: 0);
     setState(() {
       Random rnd;
@@ -79,9 +83,7 @@ class _HomePageState extends State<HomePage>
   }
 
   List<Activities> returnList(int index){
-
       List<Activities> newList = new List();
-      
       for(Activities x in activityList){
         if(x.getDayName() == _days[index]){
           newList.add(x);
@@ -89,6 +91,33 @@ class _HomePageState extends State<HomePage>
         }
       }
       return newList;
+    }
+
+    List<TableRow> returnTableRow(int index){
+      List<Activities> activityList = returnList(index);
+      List<TableRow> rowList = new List();
+      
+      for(Activities x in activityList){
+        TableRow row = TableRow(
+          children: [
+            returnTableCell(x),
+                      ]
+        );
+        rowList.add(row);
+      }
+      return rowList;
+    }
+
+    TableCell returnTableCell(Activities x){
+      return TableCell(
+        child: Row(
+          children: <Widget>[
+            Text(x.getStartTime().toString()),
+            SizedBox(width: 100.0,),
+            Text(x.getActivity()),
+          ],
+        ),
+      );
     }
 
   void callback(List<Activities> activityList){
@@ -216,21 +245,14 @@ class _HomePageState extends State<HomePage>
                                         fontWeight: FontWeight.w300),
                                   ),
                                 ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 180.0),
+                                  child: Table(
+                                    border: TableBorder.all(width: 2.0, color: Colors.black),
+                                    children: returnTableRow(index)
+                                  ),
+                                )
 
-                              Expanded(
-          child: SizedBox(
-            height: 200.0,
-            child: new ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: returnList(index).length,
-              itemBuilder: (BuildContext ctxt, int listIndex) {
-                return Text(returnList(index)[listIndex].getActivity());
-              },
-            ),
-          ),
-                              
-
-                              )
                               ],
                             ),
                           ),

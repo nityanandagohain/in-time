@@ -133,7 +133,7 @@ class TimeTableMenuState extends State<TimeTableMenu> {
                 TextField(
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    hintText: "Activity"
+                    hintText: "Activity Name"
                   ),
 
                   controller: activityController,
@@ -142,16 +142,19 @@ class TimeTableMenuState extends State<TimeTableMenu> {
                     activity = x;
                   },
 
-                )
-              ], 
-      ),
-    ),
-        ),
-        RaisedButton(
+                ),
+                SizedBox(height: 10.0,),
+                RaisedButton(
+          child: Text("Add to current day"),
           onPressed: (){
             addToActivityList();
           },
         )
+              ], 
+      ),
+    ),
+        ),
+        
       ],),
       floatingActionButton:  FloatingActionButton(
         onPressed: () {
@@ -164,18 +167,6 @@ class TimeTableMenuState extends State<TimeTableMenu> {
       ),
     );
   }
-
-  // void addFromField(String val, int flag){
-  //   if(flag == 0){
-  //     startTime = int.parse(val);
-  //   }
-  //   else if(flag == 1){
-  //     endTime = int.parse(val);
-  //   }
-  //   else if(flag == 2){
-  //     activity = val;
-  //   }
-  // }
 
   void addToList(){
 List<Activities> listX;

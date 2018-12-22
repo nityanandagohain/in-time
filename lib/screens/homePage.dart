@@ -13,14 +13,10 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   PageController pageViewController;
   String str;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
-  
-
 
   Color clr = Colors.orange;
   var pos = 20.0;
@@ -44,9 +40,9 @@ class _HomePageState extends State<HomePage>
   ];
 
   List<Activities> activityList;
-  
+
   TimeTableMenu timeTableMenu;
-  
+
   List<String> _days = [
     "Monday",
     "Tuesday",
@@ -56,8 +52,7 @@ class _HomePageState extends State<HomePage>
     "Saturday",
     "Sunday",
   ];
-  
-  
+
   @override
   void initState() {
     super.initState();
@@ -82,45 +77,51 @@ class _HomePageState extends State<HomePage>
     });
   }
 
-  List<Activities> returnList(int index){
-      List<Activities> newList = new List();
-      for(Activities x in activityList){
-        if(x.getDayName() == _days[index]){
+  List<Activities> returnList(int index) {
+    List<Activities> newList = new List();
+
+    if (activityList != null) {
+      for (Activities x in activityList) {
+        if (x.getDayName() == _days[index]) {
           newList.add(x);
           print("devil ${x.getDayName()}");
         }
       }
-      return newList;
+    } else {
+      Activities x = new Activities(activity: " ");
+      newList.add(x);
     }
+    return newList;
+  }
 
-    List<TableRow> returnTableRow(int index){
-      List<Activities> activityList = returnList(index);
-      List<TableRow> rowList = new List();
-      
-      for(Activities x in activityList){
-        TableRow row = TableRow(
-          children: [
-            returnTableCell(x),
-                      ]
-        );
-        rowList.add(row);
-      }
-      return rowList;
+  List<TableRow> returnTableRow(int index) {
+    List<Activities> activityList = returnList(index);
+    List<TableRow> rowList = new List();
+
+    for (Activities x in activityList) {
+      TableRow row = TableRow(children: [
+        returnTableCell(x),
+      ]);
+      rowList.add(row);
     }
+    return rowList;
+  }
 
-    TableCell returnTableCell(Activities x){
-      return TableCell(
-        child: Row(
-          children: <Widget>[
-            Text(x.getStartTime().toString()),
-            SizedBox(width: 100.0,),
-            Text(x.getActivity()),
-          ],
-        ),
-      );
-    }
+  TableCell returnTableCell(Activities x) {
+    return TableCell(
+      child: Row(
+        children: <Widget>[
+          Text(x.getStartTime().toString()),
+          SizedBox(
+            width: 100.0,
+          ),
+          Text(x.getActivity()),
+        ],
+      ),
+    );
+  }
 
-  void callback(List<Activities> activityList){
+  void callback(List<Activities> activityList) {
     this.activityList = activityList;
     // print(activityList[activityList.length - 1].getDayName());
     print(activityList.length);
@@ -143,30 +144,31 @@ class _HomePageState extends State<HomePage>
     return new Scaffold(
       drawer: drawerLeft(),
       appBar: AppBar(
-          title: Text(
-            "IN TIME",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+        title: Text(
+          "IN TIME",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+        ),
+        backgroundColor: clr,
+        elevation: 0.0,
+        leading: MaterialButton(
+          child: Icon(
+            Icons.view_headline,
+            color: Colors.black,
           ),
-          backgroundColor: clr,
-          elevation: 0.0,
-          leading: MaterialButton(
-            child: Icon(
-              Icons.view_headline,
-              color: Colors.black,
-            ),
+          onPressed: () {
+            scaffoldKey.currentState.openDrawer();
+          },
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.forward),
             onPressed: () {
-              scaffoldKey.currentState.openDrawer();
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => timeTableMenu));
             },
           ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.forward),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => timeTableMenu));
-              },
-            ),
-          ],
-          ),
+        ],
+      ),
       key: scaffoldKey,
       body: AnimatedContainer(
         padding: EdgeInsets.only(top: 50.0),
@@ -181,13 +183,11 @@ class _HomePageState extends State<HomePage>
               rnd = new Random();
               int r = 0 + rnd.nextInt(_colors.length - 0);
               clr = _colors[r];
-              
             });
           },
           controller: pageViewController,
-          
-        
-          itemBuilder: (BuildContext context, int index) { 
+
+          itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: const EdgeInsets.only(left: 10.0),
               child: Stack(
@@ -248,11 +248,10 @@ class _HomePageState extends State<HomePage>
                                 Padding(
                                   padding: const EdgeInsets.only(top: 180.0),
                                   child: Table(
-                                    border: TableBorder.all(width: 2.0, color: Colors.black),
-                                    children: returnTableRow(index)
-                                  ),
+                                      border: TableBorder.all(
+                                          width: 2.0, color: Colors.black),
+                                      children: returnTableRow(index)),
                                 )
-
                               ],
                             ),
                           ),
@@ -267,7 +266,5 @@ class _HomePageState extends State<HomePage>
         ),
       ),
     );
-
-    
   }
 }

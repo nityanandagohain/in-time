@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-  class Activities{
-
+class Activities {
   TimeOfDay startTime;
   TimeOfDay endTime;
   String activity;
@@ -9,24 +8,19 @@ import 'package:flutter/material.dart';
 
   Activities({this.startTime, this.endTime, this.activity, this.dayName});
 
-  String getDayName(){
+  String getDayName() {
     return dayName;
   }
 
-  String getActivity(){
+  String getActivity() {
     return activity;
   }
 
-  TimeOfDay getStartTime(){
+  TimeOfDay getStartTime() {
     return startTime;
   }
 
-  TimeOfDay getEndTime(){
+  TimeOfDay getEndTime() {
     return endTime;
   }
-  
-  }
-  
-
-
-
+}

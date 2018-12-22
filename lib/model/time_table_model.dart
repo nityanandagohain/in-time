@@ -4,9 +4,7 @@ class TimeTable {
 
   String dayName;
  
-  List<Activities> activityList;
-
-  TimeTable({this.dayName, this.activityList});
+  TimeTable({this.dayName});
 
   String getDayName(){
     return dayName;
@@ -15,14 +13,6 @@ class TimeTable {
   void setDayName(String dayName){
     this.dayName = dayName;
   }
-
-  void setActivityList(List<Activities> activityList){
-    this.activityList = activityList;
-  }
-  List<Activities> getActivityList(){
-    return activityList;
-  }
-
   
 }
 

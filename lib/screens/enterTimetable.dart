@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:in_time/model/activity_model.dart';
 import 'package:in_time/model/time_table_model.dart';
 import 'package:in_time/screens/add_subjects.dart';
+import 'package:in_time/screens/homePage.dart';
 import 'package:in_time/screens/time_table_viewer.dart';
 import 'package:datetime_picker_formfield/time_picker_formfield.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +13,10 @@ class TimeTableMenu extends StatefulWidget {
   TimeTableMenuState createState() {
     return new TimeTableMenuState();
   }
+
+  Function callback;
+
+  TimeTableMenu(this.callback);
 }
 
 class TimeTableMenuState extends State<TimeTableMenu> {
@@ -149,7 +154,12 @@ class TimeTableMenuState extends State<TimeTableMenu> {
         )
       ],),
       floatingActionButton:  FloatingActionButton(
-        onPressed: addToList,
+        onPressed: () {
+          this.widget.callback(activityList);
+           Navigator.pop(context, MaterialPageRoute(
+                builder: (context) => HomePage()
+              ));
+        },
         child: Icon(Icons.add),
       ),
     );
@@ -170,9 +180,7 @@ class TimeTableMenuState extends State<TimeTableMenu> {
   void addToList(){
 List<Activities> listX;
 
-    print("activityList" + timeTableList[timeTableList.length - 1].getActivityList()[8].getDayName().toString());
-
-    TimeTable x = new TimeTable(dayName: this.dayName, activityList: activityList);
+    TimeTable x = new TimeTable(dayName: this.dayName);
     timeTableList.add(x);
 
     for(int i = 0 ; i < 7 ; i ++){
@@ -186,9 +194,6 @@ List<Activities> listX;
           }
         }
       }
-
-      timeTableList[i].setActivityList(listX);
-      print("addToList ${timeTableList[i].getActivityList().length}");
       
     }
   }
@@ -225,11 +230,7 @@ Widget subjectDialog(){
     
     Activities activity = new Activities(activity: activityController.text, startTime: this.startTime, endTime: this.endTime, dayName: this.dayName);
     activityList.add(activity);
-
-    activityController.clear();
     print("addToActivityList : ${activityList.length}");
-    this.startTime = null;
-    this.endTime = null;
   }
 
 }

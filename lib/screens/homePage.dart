@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:core';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
+import 'package:in_time/model/activity_model.dart';
 import 'package:in_time/screens/enterTimetable.dart';
 
 //drawer
@@ -39,6 +40,10 @@ class _HomePageState extends State<HomePage>
     Colors.purple,
     Colors.redAccent
   ];
+
+  List<Activities> activityList;
+  
+  TimeTableMenu timeTableMenu;
   
   List<String> _days = [
     "Monday",
@@ -53,6 +58,7 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
+    timeTableMenu = new TimeTableMenu(this.callback);
     pageViewController = new PageController(initialPage: 0);
     setState(() {
       Random rnd;
@@ -70,6 +76,25 @@ class _HomePageState extends State<HomePage>
             20.0, 100.0, pageViewController.offset - pageOffset);
       });
     });
+  }
+
+  List<Activities> returnList(int index){
+
+      List<Activities> newList = new List();
+      
+      for(Activities x in activityList){
+        if(x.getDayName() == _days[index]){
+          newList.add(x);
+          print("devil ${x.getDayName()}");
+        }
+      }
+      return newList;
+    }
+
+  void callback(List<Activities> activityList){
+    this.activityList = activityList;
+    // print(activityList[activityList.length - 1].getDayName());
+    print(activityList.length);
   }
 
   double getMappedValue(double range1low, double range1high, double range2low,
@@ -108,7 +133,7 @@ class _HomePageState extends State<HomePage>
             IconButton(
               icon: Icon(Icons.forward),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => TimeTableMenu()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => timeTableMenu));
               },
             ),
           ],
@@ -131,7 +156,9 @@ class _HomePageState extends State<HomePage>
             });
           },
           controller: pageViewController,
-          itemBuilder: (BuildContext context, int index) {
+          
+        
+          itemBuilder: (BuildContext context, int index) { 
             return Padding(
               padding: const EdgeInsets.only(left: 10.0),
               child: Stack(
@@ -189,6 +216,21 @@ class _HomePageState extends State<HomePage>
                                         fontWeight: FontWeight.w300),
                                   ),
                                 ),
+
+                              Expanded(
+          child: SizedBox(
+            height: 200.0,
+            child: new ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: returnList(index).length,
+              itemBuilder: (BuildContext ctxt, int listIndex) {
+                return Text(returnList(index)[listIndex].getActivity());
+              },
+            ),
+          ),
+                              
+
+                              )
                               ],
                             ),
                           ),
@@ -203,5 +245,7 @@ class _HomePageState extends State<HomePage>
         ),
       ),
     );
+
+    
   }
 }

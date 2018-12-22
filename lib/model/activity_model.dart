@@ -12,6 +12,18 @@ import 'package:flutter/material.dart';
   String getDayName(){
     return dayName;
   }
+
+  String getActivity(){
+    return activity;
+  }
+
+  TimeOfDay getStartTime(){
+    return startTime;
+  }
+
+  TimeOfDay getEndTime(){
+    return endTime;
+  }
   
   }
   

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:in_time/screens/homePage.dart';
 import 'package:in_time/screens/loginpage.dart';
 import 'package:in_time/screens/signuppage.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 void main() => runApp(MyApp());
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'In Time',
-      home: LoginPage(),
+      home: (FirebaseAuth.instance.currentUser() == null)? LoginPage(): HomePage(),
       routes: <String,WidgetBuilder>{
         '/landingpage':(BuildContext context)=>new MyApp(),
         '/signup':(BuildContext context)=>new SignUpPage(),

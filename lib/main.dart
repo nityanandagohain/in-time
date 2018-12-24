@@ -14,12 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'In Time',
-
-      home: Scaffold(
-        body: Center(child: LoginPage()),
-      ),
-
-//      home: (FirebaseAuth.instance.currentUser() == null)? LoginPage(): HomePage(),
+      
+      home: (FirebaseAuth.instance.currentUser() == null)? LoginPage(): HomePage(),
 
       routes: <String,WidgetBuilder>{
         '/landingpage':(BuildContext context)=>new MyApp(),

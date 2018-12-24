@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:in_time/utils/custom_loader.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
 
   GoogleSignIn googleAuth = new GoogleSignIn();
 
-  bool _x = false;
+  bool showProgressBtn = false;
 
   void _toggle() {
     setState(() {
@@ -31,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return showProgressBtn?CustomLoader():Scaffold(
         resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.orange,
         body: Container(
@@ -48,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
-          child: new Form(
+          child: Form(
             key: _key,
             autovalidate: _validate,
             child: FormUI(),
@@ -124,7 +125,6 @@ class _LoginPageState extends State<LoginPage> {
                     color: Colors.orange,
                     child: Text('Log In'),
                     onPressed: () {
-                       _x=true ;
                       _sendToServer();
                     },
                   ),
@@ -142,7 +142,6 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.orange,
                             child: Text('Sign Up'),
                             onPressed: () {
-                              _x=true ;
                               Navigator.of(context).pushNamed('/signup');
                             },
                           ),
@@ -162,7 +161,6 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.orange,
                             child: Text('Google'),
                             onPressed: () {
-                              _x=true ;
                               googleAuth.signIn().then((result) {
                                 result.authentication.then((googleKey) {
                                   FirebaseAuth.instance
@@ -195,6 +193,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   String validateEmail(String value) {
+    if(_validate) {
+      setState(() {
+        showProgressBtn = true;
+      });
+    }
     String pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regExp = new RegExp(pattern);
@@ -209,14 +212,19 @@ class _LoginPageState extends State<LoginPage> {
 
   _sendToServer() {
     if (_key.currentState.validate()) {
-      // No any error in validation
+       setState(() {
+         showProgressBtn=true;
+       });
+       // No any error in validation
       _key.currentState.save();
       if (_password.length >= 6) {
         FirebaseAuth.instance
             .signInWithEmailAndPassword(email: _email, password: _password)
             .then((FirebaseUser user) {
+          hideProgress();
           Navigator.of(context).pushReplacementNamed('/homepage');
         }).catchError((e) {
+          hideProgress();
           authProblems errorType;
           switch (e.message) {
             case 'There is no user record corresponding to this identifier. The user may have been deleted.':
@@ -252,8 +260,15 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       // validation error
       setState(() {
-        _validate = true;
+        _validate = false;
+        showProgressBtn = false;
+
       });
     }
+  }
+  void hideProgress() {
+    setState(() {
+      showProgressBtn = false;
+    });
   }
 }

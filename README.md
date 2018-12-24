@@ -11,6 +11,8 @@ It will also show motiviational quotes with todos to be done so that the student
 
 ![img](./assets/img/wire.png)
 
+## Architecture used:
+ [Bloc Pattern](https://medium.com/flutterpub/architecting-your-flutter-project-bd04e144a8f1)
 
 ## TODOS:
 * Create login using firebase

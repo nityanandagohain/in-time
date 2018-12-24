@@ -4,8 +4,17 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:in_time/model/activity_model.dart';
 import 'package:in_time/screens/enterTimetable.dart';
+import 'package:flutter/widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
+import 'package:in_time/blocs/quotes_bloc.dart';
+import 'package:in_time/models/quotes_model.dart';
+import 'dart:convert';
+import 'dart:async';
 
 //drawer
+
+import 'package:in_time/services/constants.dart';
 import './drawer.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,9 +23,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  Map item;
+  List data;
+
   PageController pageViewController;
   String str;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey _menuKey = new GlobalKey();
 
   Color clr = Colors.orange;
   var pos = 20.0;
@@ -57,6 +70,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     timeTableMenu = new TimeTableMenu(this.callback);
+//     this.getdata();
+    bloc.fetchAllMovies();
 
     pageViewController = new PageController(initialPage: 0);
     setState(() {
@@ -108,10 +123,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   TableCell returnTableCell(Activities x) {
+    String hour = " ";
+    String min = " ";
+
+    hour = (x.getStartTime() != null ? x.getStartTime().hour.toString() : " ");
+    min = (x.getStartTime() != null ? x.getStartTime().minute.toString() : " ");
+
     return TableCell(
       child: Row(
         children: <Widget>[
-          Text(x.getStartTime().toString()),
+          Text("$hour :  $min"),
           SizedBox(
             width: 100.0,
           ),
@@ -123,7 +144,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   void callback(List<Activities> activityList) {
     this.activityList = activityList;
-    // print(activityList[activityList.length - 1].getDayName());
     print(activityList.length);
   }
 
@@ -142,7 +162,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      drawer: drawerLeft(),
+      drawer: drawerLeft(context),
       appBar: AppBar(
         title: Text(
           "IN TIME",
@@ -235,16 +255,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     ),
                                   ],
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 15.0),
-                                  child: Text(
-                                    'QUOTE:',
-                                    softWrap: true,
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                ),
+                                Container(
+                                    child: StreamBuilder(
+                                  stream: bloc.allQuotes,
+                                  builder: (context,
+                                      AsyncSnapshot<QuotesModel> snapshot) {
+                                    if (snapshot.hasData) {
+                                      print(snapshot.data.quote);
+                                      return Text(snapshot.data.quote);
+                                    } else if (snapshot.hasError) {
+                                      print(snapshot.hasData);
+                                      return Text(snapshot.error.toString());
+                                    }
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  },
+                                )),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 180.0),
                                   child: Table(
@@ -266,5 +292,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+
+  void choiceAction(String choice) {
+    FirebaseAuth.instance.signOut().then((value) {
+      Navigator.of(context).pushReplacementNamed('landingpage');
+    }).catchError((e) {
+      print(e);
+    });
   }
 }

@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
 
   GoogleSignIn googleAuth = new GoogleSignIn();
 
-  bool showProgressBtn = false;
+  bool showCustomLoader = false;
 
   void _toggle() {
     setState(() {
@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return showProgressBtn?CustomLoader():Scaffold(
+    return showCustomLoader?CustomLoader():Scaffold(
         resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.orange,
         body: Container(
@@ -195,7 +195,7 @@ class _LoginPageState extends State<LoginPage> {
   String validateEmail(String value) {
     if(_validate) {
       setState(() {
-        showProgressBtn = true;
+        showCustomLoader = true;
       });
     }
     String pattern =
@@ -213,7 +213,7 @@ class _LoginPageState extends State<LoginPage> {
   _sendToServer() {
     if (_key.currentState.validate()) {
        setState(() {
-         showProgressBtn=true;
+         showCustomLoader=true;
        });
        // No any error in validation
       _key.currentState.save();
@@ -261,14 +261,14 @@ class _LoginPageState extends State<LoginPage> {
       // validation error
       setState(() {
         _validate = false;
-        showProgressBtn = false;
+        showCustomLoader = false;
 
       });
     }
   }
   void hideProgress() {
     setState(() {
-      showProgressBtn = false;
+      showCustomLoader = false;
     });
   }
 }

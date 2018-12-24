@@ -2,6 +2,8 @@ import 'dart:math';
 import 'dart:core';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
+import 'package:in_time/model/activity_model.dart';
+import 'package:in_time/screens/enterTimetable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
@@ -50,6 +52,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     Colors.redAccent
   ];
 
+  List<Activities> activityList;
+
+  TimeTableMenu timeTableMenu;
+
   List<String> _days = [
     "Monday",
     "Tuesday",
@@ -63,6 +69,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    timeTableMenu = new TimeTableMenu(this.callback);
 //     this.getdata();
     bloc.fetchAllMovies();
 
@@ -85,6 +92,61 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     });
   }
 
+  List<Activities> returnList(int index) {
+    List<Activities> newList = new List();
+
+    if (activityList != null) {
+      for (Activities x in activityList) {
+        if (x.getDayName() == _days[index]) {
+          newList.add(x);
+          print("devil ${x.getDayName()}");
+        }
+      }
+    } else {
+      Activities x = new Activities(activity: " ");
+      newList.add(x);
+    }
+    return newList;
+  }
+
+  List<TableRow> returnTableRow(int index) {
+    List<Activities> activityList = returnList(index);
+    List<TableRow> rowList = new List();
+
+    for (Activities x in activityList) {
+      TableRow row = TableRow(children: [
+        returnTableCell(x),
+      ]);
+      rowList.add(row);
+    }
+    return rowList;
+  }
+
+  TableCell returnTableCell(Activities x) {
+    String hour = " ";
+    String min = " ";
+
+    hour = (x.getStartTime() != null ? x.getStartTime().hour.toString() : " ");
+    min = (x.getStartTime() != null ? x.getStartTime().minute.toString() : " ");
+
+    return TableCell(
+      child: Row(
+        children: <Widget>[
+          Text("$hour :  $min"),
+          SizedBox(
+            width: 100.0,
+          ),
+          Text(x.getActivity()),
+        ],
+      ),
+    );
+  }
+
+  void callback(List<Activities> activityList) {
+    this.activityList = activityList;
+    print(activityList.length);
+  }
+
   double getMappedValue(double range1low, double range1high, double range2low,
       double range2high, double number) {
     return ((number - range1low) *
@@ -102,36 +164,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return new Scaffold(
       drawer: drawerLeft(context),
       appBar: AppBar(
-          title: Text(
-            "IN TIME",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+        title: Text(
+          "IN TIME",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+        ),
+        backgroundColor: clr,
+        elevation: 0.0,
+        leading: MaterialButton(
+          child: Icon(
+            Icons.view_headline,
+            color: Colors.black,
           ),
-
-          actions: <Widget>[
-            PopupMenuButton<String>(
-              itemBuilder: (BuildContext context) {
-                return Constants.choices.map((String choice) {
-                  return PopupMenuItem<String>(
-                    value: choice,
-                    child: Text(choice),
-                  );
-                }).toList();
-              },
-              onSelected: choiceAction,
-            ),
-          ],
-
-          backgroundColor: clr,
-          elevation: 0.0,
-          leading: MaterialButton(
-            child: Icon(
-              Icons.view_headline,
-              color: Colors.black,
-            ),
+          onPressed: () {
+            scaffoldKey.currentState.openDrawer();
+          },
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.forward),
             onPressed: () {
-              scaffoldKey.currentState.openDrawer();
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => timeTableMenu));
             },
-          )),
+          ),
+        ],
+      ),
       key: scaffoldKey,
       body: AnimatedContainer(
         padding: EdgeInsets.only(top: 50.0),
@@ -149,6 +206,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             });
           },
           controller: pageViewController,
+
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: const EdgeInsets.only(left: 10.0),
@@ -198,19 +256,27 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   ],
                                 ),
                                 Container(
-                                  child: StreamBuilder(
-                                    stream: bloc.allQuotes,
-                                    builder: (context, AsyncSnapshot<QuotesModel> snapshot) {
-                                      if (snapshot.hasData) {
-                                        print(snapshot.data.quote);
-                                        return Text(snapshot.data.quote);
-                                      } else if (snapshot.hasError) {
-                                        print(snapshot.hasData);
-                                        return Text(snapshot.error.toString());
-                                      }
-                                      return Center(child: CircularProgressIndicator());
-                                    },
-                                  )
+                                    child: StreamBuilder(
+                                  stream: bloc.allQuotes,
+                                  builder: (context,
+                                      AsyncSnapshot<QuotesModel> snapshot) {
+                                    if (snapshot.hasData) {
+                                      print(snapshot.data.quote);
+                                      return Text(snapshot.data.quote);
+                                    } else if (snapshot.hasError) {
+                                      print(snapshot.hasData);
+                                      return Text(snapshot.error.toString());
+                                    }
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  },
+                                )),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 180.0),
+                                  child: Table(
+                                      border: TableBorder.all(
+                                          width: 2.0, color: Colors.black),
+                                      children: returnTableRow(index)),
                                 )
                               ],
                             ),
@@ -228,7 +294,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-
   void choiceAction(String choice) {
     FirebaseAuth.instance.signOut().then((value) {
       Navigator.of(context).pushReplacementNamed('landingpage');
@@ -236,6 +301,4 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       print(e);
     });
   }
-   
-
 }

@@ -33,4 +33,6 @@ replace <YOUR_USERNAME> with your username
 
 Demo gif of the app running 
 
+<a href="https://imgflip.com/gif/2pr4zr"><img src="https://i.imgflip.com/2pr4zr.gif" title="made at imgflip.com"/></a>
+
 

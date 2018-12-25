@@ -31,6 +31,6 @@ replace <YOUR_USERNAME> with your username
     -Add Firebase to your app
         -Enter Package name as `com.example.intime`
         -Add your SHA-1 key (Very Important)
-        -Download COnfig file `google.services.json`
+        -Download Config file `google.services.json`
     -Add the config file into Android => App =>(Paste it here)      
 * run the app `flutter run` 

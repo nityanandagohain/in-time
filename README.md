@@ -14,13 +14,7 @@ It will also show motiviational quotes with todos to be done so that the student
 ## Architecture used:
  [Bloc Pattern](https://medium.com/flutterpub/architecting-your-flutter-project-bd04e144a8f1)
 
-## TODOS:
-* Create login using firebase
-* Create page to edit routine
-* Create page to edit todos
-* Store the data in firebase
-* Push notifications for each class and todos
-* Register wheather the class is attended or not
+
 
 ## Contributing Guide:
 
@@ -36,3 +30,7 @@ replace <YOUR_USERNAME> with your username
         -Download Config file `google.services.json`
     -Add the config file into Android => App =>(Paste it here)      
 * run the app `flutter run` 
+
+Demo gif of the app running 
+
+

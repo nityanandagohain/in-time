@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 Widget drawerLeft(BuildContext context) {
+  final GoogleSignIn googleSignin = GoogleSignIn();
   return Drawer(
     child: ListView(
       // Important: Remove any padding from the ListView.
@@ -76,13 +78,15 @@ Widget drawerLeft(BuildContext context) {
           color: Colors.yellow[500],
           child: ListTile(
             title: Text('Signout'),
-            onTap: () {
-              FirebaseAuth.instance.signOut().then((value) {
-                Navigator.of(context).pushReplacementNamed('landingpage');
+            onTap: () async {
+              await googleSignin.signOut();
+              Navigator.pop(context);
+              await FirebaseAuth.instance.signOut().then((value) {
+                Navigator.of(context).pushReplacementNamed('/loginpage');
               }).catchError((e) {
                 print(e);
               });
-              Navigator.pop(context);
+              
             },
             leading: Icon(Icons.lock_open),
           ),

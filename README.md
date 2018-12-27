@@ -14,13 +14,7 @@ It will also show motiviational quotes with todos to be done so that the student
 ## Architecture used:
  [Bloc Pattern](https://medium.com/flutterpub/architecting-your-flutter-project-bd04e144a8f1)
 
-## TODOS:
-* Create login using firebase
-* Create page to edit routine
-* Create page to edit todos
-* Store the data in firebase
-* Push notifications for each class and todos
-* Register wheather the class is attended or not
+
 
 ## Contributing Guide:
 
@@ -28,4 +22,17 @@ It will also show motiviational quotes with todos to be done so that the student
 * Clone the repoository
 `git clone https://github.com/<YOUR_USERNAME>/in-time`
 replace <YOUR_USERNAME> with your username
+* Make Firebase Project
+    -Create new Project 
+    -Add Firebase to your app
+        -Enter Package name as `com.example.intime`
+        -Add your SHA-1 key (Very Important)
+        -Download Config file `google.services.json`
+    -Add the config file into Android => App =>(Paste it here)      
 * run the app `flutter run` 
+
+Demo gif of the app running 
+
+<a href="https://imgflip.com/gif/2pr4zr"><img src="https://i.imgflip.com/2pr4zr.gif" title="made at imgflip.com"/></a>
+
+

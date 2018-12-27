@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'dart:core';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:in_time/model/activity_model.dart';
@@ -287,13 +286,5 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ),
       ),
     );
-  }
-
-  void choiceAction(String choice) {
-    FirebaseAuth.instance.signOut().then((value) {
-      Navigator.of(context).pushReplacementNamed('landingpage');
-    }).catchError((e) {
-      print(e);
-    });
   }
 }

@@ -203,6 +203,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               rnd = new Random();
               int r = 0 + rnd.nextInt(_colors.length - 0);
               clr = _colors[r];
+              bloc.fetchAllMovies();
             });
           },
           controller: pageViewController,

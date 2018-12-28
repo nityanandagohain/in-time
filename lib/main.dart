@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import  'package:flutter/material.dart';
 import 'package:in_time/screens/homePage.dart';
 import 'package:in_time/screens/loginpage.dart';
 import 'package:in_time/screens/signuppage.dart';

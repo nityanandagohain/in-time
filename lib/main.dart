@@ -4,12 +4,15 @@ import 'package:in_time/screens/loginpage.dart';
 import 'package:in_time/screens/signuppage.dart';
 import 'package:in_time/utils/custom_loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 
 
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -12,8 +12,33 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+String text="Hello World";
+FirebaseMessaging fb = new FirebaseMessaging();
 
+@override
+void initstate(){
+  fb.configure(
+    onLaunch: (Map<String,dynamic> msg){
+      print(" on Launch called");
+    },
+    onResume: (Map<String,dynamic> msg){
+      print("called");
+    },
+    onMessage: (Map<String,dynamic> msg){
+      print(" on Resume called ");
+
+    }
+  );
+  fb.requestNotificationPermissions(
+    const IosNotificationSettings(
+      sound: true,
+      badge: true,
+      alert: true,
+    )
+  );
+}
   @override
+
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'In Time',

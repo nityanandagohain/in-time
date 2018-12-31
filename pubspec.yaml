@@ -28,7 +28,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   rxdart: ^0.18.0
   firebase_core :
-  firebase_messaging :
+  firebase_messaging : ^1.0.3
+  flutter_local_notifications :
 
 dev_dependencies:
   flutter_test:

@@ -14,18 +14,26 @@ import 'dart:async';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-String text="Hello World";
-FirebaseMessaging fb = new FirebaseMessaging();
-FlutterLocalNotificationsPlugin fl= new FlutterLocalNotificationsPlugin();
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final FirebaseMessaging message = FirebaseMessaging();
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+}
+
+
 
 @override
-void initstate(){
+void initstate() {
   super.initstate();
-  var android= new AndroidInitializationSettings('minmap/iclauncher');
-  var ios = new IosNotificationSettings();
-  var platform = new InitializationSettings(android, ios);
-  fl.initialize(platform);
+  var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+  var iOS = new IosNotificationSettings();
+  var initSetttings = new InitializationSettings(android, iOS);
+
+
 
   fb.configure(
     onLaunch: (Map<String,dynamic> msg){

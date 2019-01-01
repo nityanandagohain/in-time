@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
   }
   update( String token){
     print(token);
-    text=token;
+
 
   }
 

@@ -80,8 +80,7 @@ class _MyAppState extends State<MyApp> {
           '/landingpage': (BuildContext context) => new MyApp(),
           '/signup': (BuildContext context) => new SignUpPage(),
           '/homepage': (BuildContext context) => new HomePage()
-        }
-        debugShowCheckedModeBanner: false,);
+        });
 
 
 

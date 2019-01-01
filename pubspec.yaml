@@ -27,6 +27,11 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   rxdart: ^0.18.0
+  firebase_core : ^0.2.5
+  firebase_messaging : 0.2.1
+  flutter_local_notifications :
+  firebase_database :
+  firebase_analytics: ^1.0.4
 
 dev_dependencies:
   flutter_test:

@@ -62,27 +62,15 @@ class _MyAppState extends State<MyApp> {
 
 
         @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+        Widget build(BuildContext context) {
+          return MaterialApp(
+              title: 'In Time',
 
-        title: 'In Time',
+              home: (FirebaseAuth.instance.currentUser() == null)? LoginPage(): HomePage(),
 
-
-
-        home: (FirebaseAuth.instance.currentUser() == null)
-            ? LoginPage()
-            : HomePage(),
-
-
-
-
-        routes: <String, WidgetBuilder>{
-          '/landingpage': (BuildContext context) => new MyApp(),
-          '/signup': (BuildContext context) => new SignUpPage(),
-          '/homepage': (BuildContext context) => new HomePage()
-        });
-
-
-
-  }
-}
+              routes: <String,WidgetBuilder>{
+                '/landingpage':(BuildContext context)=>new MyApp(),
+                '/signup':(BuildContext context)=>new SignUpPage(),
+                '/homepage':(BuildContext context)=> new HomePage()
+              });
+        }

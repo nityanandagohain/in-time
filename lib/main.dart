@@ -8,91 +8,82 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:async';
 
-
-
-
-
 void main() => runApp(MyApp());
-
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  final FirebaseMessaging message = FirebaseMessaging();
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-}
+  FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
+  String text;
 
-
-
-@override
-void initstate() {
-  super.initstate();
-  var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
-  var iOS = new IosNotificationSettings();
-  var initSetttings = new InitializationSettings(android, iOS);
-
-
-
-  fb.configure(
-    onLaunch: (Map<String,dynamic> msg){
-      print(" on Launch called");
-    },
-    onResume: (Map<String,dynamic> msg){
-      print("called");
-    },
-    onMessage: (Map<String,dynamic> msg){
-      showmessage(msg);
-
-      print(" on Resume called ");
-
-    }
-  );
-  fb.requestNotificationPermissions(
-    const IosNotificationSettings(
-      sound: true,
-      badge: true,
-      alert: true,
-    )
-  );
-  fb.onIosSettingsRegistered.listen((IosNotificationSettings setting){
-    print("IOS setting registered");
-  });
-  fb.getToken().then((token){
-    update(token);
-  });
-}
-showmessage(Map<String , dynamic> msg) async{
-  var android = new AndroidNotificationDetails('channel_id',"Channel Name","Channel Description");
-  var ios = new IOSNotificationDetails();
-  var platform = new NotificationDetails(android, ios);
- FlutterLocalNotificationsPlugin.show(0,"This is title","This is demo",platform);
-
-}
-update(String token){
-  print(token);
-  text=token;
-  setState((){
-
-
-  });
-
-}
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _firebaseMessaging.configure(
+      onMessage: (Map <String, dynamic> message) {
+        print(message);
+      },
+      onResume: (Map <String, dynamic> message) {
+        print(message);
+      },
+      onLaunch: (Map <String, dynamic> message) {
+        print(message);
+      },
 
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+      const IosNotificationSettings(
+        sound: true,
+        alert: true,
+        badge: true
+      )
+    );
+    _firebaseMessaging.onIosSettingsRegistered.listen((IosNotificationSettings setting){
+      print('IOS Setting Registered');
+    });
+    _firebaseMessaging.getToken().then((token){
+      update(token);
+      text=token;
+      setState(() {
 
-
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'In Time',
-      
-      home: (FirebaseAuth.instance.currentUser() == null)? LoginPage(): HomePage(),
-
-      routes: <String,WidgetBuilder>{
-        '/landingpage':(BuildContext context)=>new MyApp(),
-        '/signup':(BuildContext context)=>new SignUpPage(),
-        '/homepage':(BuildContext context)=> new HomePage()
       });
+
+    });
+
+  }
+  update( String token){
+    print(token);
+    text=token;
+
   }
 
+
+        @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+
+        title: 'In Time',
+
+
+
+        home: (FirebaseAuth.instance.currentUser() == null)
+            ? LoginPage()
+            : HomePage(),
+
+
+
+
+        routes: <String, WidgetBuilder>{
+          '/landingpage': (BuildContext context) => new MyApp(),
+          '/signup': (BuildContext context) => new SignUpPage(),
+          '/homepage': (BuildContext context) => new HomePage()
+        }
+        debugShowCheckedModeBanner: false,);
+
+
+
+  }
+}

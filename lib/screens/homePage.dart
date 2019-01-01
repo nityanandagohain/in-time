@@ -5,16 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:in_time/model/activity_model.dart';
 import 'package:in_time/screens/enterTimetable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart' as http;
 import 'package:in_time/blocs/quotes_bloc.dart';
 import 'package:in_time/models/quotes_model.dart';
-import 'dart:convert';
-import 'dart:async';
 
 //drawer
-
-import 'package:in_time/services/constants.dart';
 import './drawer.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,7 +23,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   PageController pageViewController;
   String str;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalKey _menuKey = new GlobalKey();
 
   Color clr = Colors.orange;
   var pos = 20.0;
@@ -292,13 +285,5 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ),
       ),
     );
-  }
-
-  void choiceAction(String choice) {
-    FirebaseAuth.instance.signOut().then((value) {
-      Navigator.of(context).pushReplacementNamed('landingpage');
-    }).catchError((e) {
-      print(e);
-    });
   }
 }

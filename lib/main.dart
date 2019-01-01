@@ -70,7 +70,8 @@ class _MyAppState extends State<MyApp> {
         routes: <String, WidgetBuilder>{
           '/landingpage': (BuildContext context) => new MyApp(),
           '/signup': (BuildContext context) => new SignUpPage(),
-          '/homepage': (BuildContext context) => new HomePage()
+          '/homepage': (BuildContext context) => new HomePage(),
+          '/loginpage' : (BuildContext context) => new LoginPage()
         });
   }
 }

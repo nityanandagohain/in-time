@@ -35,42 +35,42 @@ class _MyAppState extends State<MyApp> {
 
     );
     _firebaseMessaging.requestNotificationPermissions(
-      const IosNotificationSettings(
-        sound: true,
-        alert: true,
-        badge: true
-      )
+        const IosNotificationSettings(
+            sound: true,
+            alert: true,
+            badge: true
+        )
     );
-    _firebaseMessaging.onIosSettingsRegistered.listen((IosNotificationSettings setting){
+    _firebaseMessaging.onIosSettingsRegistered.listen((
+        IosNotificationSettings setting) {
       print('IOS Setting Registered');
     });
-    _firebaseMessaging.getToken().then((token){
+    _firebaseMessaging.getToken().then((token) {
       update(token);
-      text=token;
+      text = token;
       setState(() {
 
       });
-
     });
-
   }
-  update( String token){
+
+  update(String token) {
     print(token);
-
-
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: 'In Time',
 
-        @override
-        Widget build(BuildContext context) {
-          return MaterialApp(
-              title: 'In Time',
+        home: (FirebaseAuth.instance.currentUser() == null)
+            ? LoginPage()
+            : HomePage(),
 
-              home: (FirebaseAuth.instance.currentUser() == null)? LoginPage(): HomePage(),
-
-              routes: <String,WidgetBuilder>{
-                '/landingpage':(BuildContext context)=>new MyApp(),
-                '/signup':(BuildContext context)=>new SignUpPage(),
-                '/homepage':(BuildContext context)=> new HomePage()
-              });
-        }
+        routes: <String, WidgetBuilder>{
+          '/landingpage': (BuildContext context) => new MyApp(),
+          '/signup': (BuildContext context) => new SignUpPage(),
+          '/homepage': (BuildContext context) => new HomePage()
+        });
+  }
+}

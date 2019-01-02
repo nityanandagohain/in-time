@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:in_time/model/activity_model.dart';
+import 'package:in_time/models/quotes_model_new.dart';
 import 'package:in_time/screens/enterTimetable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:in_time/blocs/quotes_bloc.dart';
@@ -253,10 +254,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     child: StreamBuilder(
                                   stream: bloc.allQuotes,
                                   builder: (context,
-                                      AsyncSnapshot<QuotesModel> snapshot) {
+                                      AsyncSnapshot<Q> snapshot) {
                                     if (snapshot.hasData) {
-                                      print(snapshot.data.quote);
-                                      return Text(snapshot.data.quote);
+                                      print(snapshot.data.contents.quotes[0].quote);
+                                      return Text(snapshot.data.contents.quotes[0].quote);
                                     } else if (snapshot.hasError) {
                                       print(snapshot.hasData);
                                       return Text(snapshot.error.toString());

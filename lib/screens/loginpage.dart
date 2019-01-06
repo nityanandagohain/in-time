@@ -74,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: TextDecoration.none,
                   fontSize: 30.0,
                   fontFamily: 'Lobster',
-                  fontWeight: FontWeight.w300),
+                    fontWeight: FontWeight.w300),
             ),
           ),
           Center(

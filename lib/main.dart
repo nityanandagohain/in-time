@@ -61,6 +61,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
 
         title: 'In Time',
         home: (FirebaseAuth.instance.currentUser() == null)
@@ -72,7 +73,10 @@ class _MyAppState extends State<MyApp> {
           '/signup': (BuildContext context) => new SignUpPage(),
           '/homepage': (BuildContext context) => new HomePage(),
           '/loginpage' : (BuildContext context) => new LoginPage()
-        });
+        }
+
+        );
+
 
 
   }

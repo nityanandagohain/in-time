@@ -74,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: TextDecoration.none,
                   fontSize: 30.0,
                   fontFamily: 'Lobster',
-                    fontWeight: FontWeight.w300),
+                  fontWeight: FontWeight.w300),
             ),
           ),
           Center(
@@ -110,8 +110,8 @@ class _LoginPageState extends State<LoginPage> {
                             validator: (val) => val.length == 0
                                 ? 'Please Enter the Password'
                                 : (val.length < 6)
-                                    ? 'Password too short'
-                                    : null,
+                                ? 'Password too short'
+                                : null,
                             onSaved: (val) => _password = val,
                             obscureText: _obscureText,
                           ),
@@ -151,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
 
                           /* child:new Image.asset(
                'images/goog.png',width: 40.0,height: 50.0,
-               
+
              ),*/
 
                           child: new RaisedButton(
@@ -165,8 +165,8 @@ class _LoginPageState extends State<LoginPage> {
                                 result.authentication.then((googleKey) {
                                   FirebaseAuth.instance
                                       .signInWithGoogle(
-                                          idToken: googleKey.idToken,
-                                          accessToken: googleKey.accessToken)
+                                      idToken: googleKey.idToken,
+                                      accessToken: googleKey.accessToken)
                                       .then((signedInUser) {
                                     print(
                                         'Signed is as ${signedInUser.displayName}');
@@ -212,10 +212,10 @@ class _LoginPageState extends State<LoginPage> {
 
   _sendToServer() {
     if (_key.currentState.validate()) {
-       setState(() {
-         showCustomLoader=true;
-       });
-       // No any error in validation
+      setState(() {
+        showCustomLoader=true;
+      });
+      // No any error in validation
       _key.currentState.save();
       if (_password.length >= 6) {
         FirebaseAuth.instance
@@ -236,7 +236,7 @@ class _LoginPageState extends State<LoginPage> {
             case 'A network error (such as timeout, interrupted connection or unreachable host) has occurred.':
               errorType = authProblems.NetworkError;
               break;
-            // ...
+          // ...
             default:
               print('Case ${e.message} is not jet implemented');
           }

@@ -78,6 +78,7 @@ class TimeTableMenuState extends State<TimeTableMenu> {
                   TimePickerFormField(
                     format: DateFormat("h:mma"),
                     decoration: InputDecoration(labelText: "Start Time"),
+
                     onChanged: (time) {
                       print("Start Time: $time");
                       startTime = time;
@@ -85,7 +86,8 @@ class TimeTableMenuState extends State<TimeTableMenu> {
                   ),
                   TimePickerFormField(
                     format: DateFormat("h:mma"),
-                    decoration: InputDecoration(labelText: "End Time"),
+                    decoration: InputDecoration(labelText: 'End Time'),
+
                     onChanged: (time) {
                       print("End Time: $time");
                       endTime = time;

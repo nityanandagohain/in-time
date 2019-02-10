@@ -10,6 +10,7 @@
 .history
 .svn/
 
+google-services.json
 
 # IntelliJ related
 *.iml
@@ -37,7 +38,6 @@ build/
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
-**/android/app/google-services.json
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
@@ -64,15 +64,6 @@ build/
 **/ios/Flutter/flutter_assets/
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
-**/ios/Flutter/Debug.xcconfig
-**/ios/Flutter/Release.xcconfig
-**/ios/Runner.xcodeproj/project.pbxproj
-**/ios/Runner.xcworkspace/contents.xcworkspacedata
-**/ios/Podfile
-**/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/
-**/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
-**/ios/Runner/GoogleService-Info.plist
-
 
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3

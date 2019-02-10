@@ -2,17 +2,11 @@ buildscript {
     repositories {
         google()
         jcenter()
-         mavenCentral()
-        maven {
-            url "https://maven.google.com"
-        }
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
         classpath 'com.google.gms:google-services:4.0.1'
-
-
     }
 }
 
@@ -29,8 +23,6 @@ subprojects {
 }
 subprojects {
     project.evaluationDependsOn(':app')
-}
-subprojects {
     project.configurations.all {
         resolutionStrategy.eachDependency { details ->
             if (details.requested.group == 'com.android.support'

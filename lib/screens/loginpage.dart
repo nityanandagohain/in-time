@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:in_time/utils/custom_loader.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'dart:async';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -19,8 +21,21 @@ class _LoginPageState extends State<LoginPage> {
 
   String _email;
   String _password;
+  final _googleSignIn = new GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  GoogleSignIn googleAuth = new GoogleSignIn();
+  Future<String> _signInWithGoogle() async {
+    GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    final FirebaseUser user = await _auth.signInWithCredential(credential);
+    print("signed in " + user.displayName);
+    Navigator.of(context).pushReplacementNamed('/homepage');
+    return user.displayName;
+  }
 
   bool showCustomLoader = false;
 
@@ -32,29 +47,31 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return showCustomLoader?CustomLoader():Scaffold(
-        resizeToAvoidBottomPadding: false,
-        backgroundColor: Colors.orange,
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              stops: [0.1, 0.5, 0.7, 0.9],
-              colors: [
-                Colors.orange[800],
-                Colors.orange[700],
-                Colors.orange[600],
-                Colors.orange[400],
-              ],
-            ),
-          ),
-          child: Form(
-            key: _key,
-            autovalidate: _validate,
-            child: FormUI(),
-          ),
-        ));
+    return showCustomLoader
+        ? CustomLoader()
+        : Scaffold(
+            resizeToAvoidBottomPadding: false,
+            backgroundColor: Colors.orange,
+            body: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  stops: [0.1, 0.5, 0.7, 0.9],
+                  colors: [
+                    Colors.orange[800],
+                    Colors.orange[700],
+                    Colors.orange[600],
+                    Colors.orange[400],
+                  ],
+                ),
+              ),
+              child: Form(
+                key: _key,
+                autovalidate: _validate,
+                child: FormUI(),
+              ),
+            ));
   }
 
   Widget FormUI() {
@@ -160,28 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                                 borderRadius: new BorderRadius.circular(30.0)),
                             color: Colors.orange,
                             child: Text('Google'),
-                            onPressed: () {
-                              googleAuth.signIn().then((result) {
-                                result.authentication.then((googleKey) {
-                                  FirebaseAuth.instance
-                                      .signInWithGoogle(
-                                          idToken: googleKey.idToken,
-                                          accessToken: googleKey.accessToken)
-                                      .then((signedInUser) {
-                                    print(
-                                        'Signed is as ${signedInUser.displayName}');
-                                    Navigator.of(context)
-                                        .pushReplacementNamed('/homepage');
-                                  }).catchError((e) {
-                                    print(e);
-                                  });
-                                }).catchError((e) {
-                                  print(e);
-                                });
-                              }).catchError((e) {
-                                print(e);
-                              });
-                            },
+                            onPressed: _signInWithGoogle,
                           ),
                         )
                       ])
@@ -193,7 +189,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   String validateEmail(String value) {
-    if(_validate) {
+    if (_validate) {
       setState(() {
         showCustomLoader = true;
       });
@@ -212,10 +208,10 @@ class _LoginPageState extends State<LoginPage> {
 
   _sendToServer() {
     if (_key.currentState.validate()) {
-       setState(() {
-         showCustomLoader=true;
-       });
-       // No any error in validation
+      setState(() {
+        showCustomLoader = true;
+      });
+      // No any error in validation
       _key.currentState.save();
       if (_password.length >= 6) {
         FirebaseAuth.instance
@@ -262,10 +258,10 @@ class _LoginPageState extends State<LoginPage> {
       setState(() {
         _validate = false;
         showCustomLoader = false;
-
       });
     }
   }
+
   void hideProgress() {
     setState(() {
       showCustomLoader = false;

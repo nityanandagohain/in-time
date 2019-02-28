@@ -50,9 +50,7 @@ class _CustomLoaderState extends State<CustomLoader>
             parent: controller,
             curve: Interval(0.0, 0.25, curve: Curves.elasticOut)));
 
-    setState(() {
-
-    });
+    setState(() {});
     controller.addListener(() {
       setState(() {
         Random rnd;
@@ -62,14 +60,11 @@ class _CustomLoaderState extends State<CustomLoader>
           radius = anim_radius_in.value * initialRadius;
           int r = 0 + rnd.nextInt(_colors.length - 0);
           clr = _colors[r];
-
         } else if (controller.value >= 0.0 && controller.value <= 0.25) {
           radius = anim_radius_out.value * initialRadius;
           int r = 0 + rnd.nextInt(_colors.length - 0);
           clr = _colors[r];
-
         }
-
       });
     });
     controller.repeat();

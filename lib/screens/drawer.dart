@@ -86,7 +86,6 @@ Widget drawerLeft(BuildContext context) {
               }).catchError((e) {
                 print(e);
               });
-              
             },
             leading: Icon(Icons.lock_open),
           ),

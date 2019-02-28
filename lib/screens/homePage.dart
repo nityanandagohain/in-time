@@ -3,11 +3,8 @@ import 'dart:core';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:in_time/model/activity_model.dart';
-import 'package:in_time/models/quotes_model_new.dart';
 import 'package:in_time/screens/enterTimetable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:in_time/blocs/quotes_bloc.dart';
-import 'package:in_time/models/quotes_model.dart';
 
 //drawer
 import './drawer.dart';
@@ -65,7 +62,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.initState();
     timeTableMenu = new TimeTableMenu(this.callback);
 //     this.getdata();
-    bloc.fetchAllMovies();
 
     pageViewController = new PageController(initialPage: 0);
     setState(() {
@@ -197,7 +193,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               rnd = new Random();
               int r = 0 + rnd.nextInt(_colors.length - 0);
               clr = _colors[r];
-              bloc.fetchAllMovies();
             });
           },
           controller: pageViewController,
@@ -250,22 +245,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     ),
                                   ],
                                 ),
-                                Container(
-                                    child: StreamBuilder(
-                                  stream: bloc.allQuotes,
-                                  builder: (context,
-                                      AsyncSnapshot<Q> snapshot) {
-                                    if (snapshot.hasData) {
-                                      print(snapshot.data.contents.quotes[0].quote);
-                                      return Text(snapshot.data.contents.quotes[0].quote);
-                                    } else if (snapshot.hasError) {
-                                      print(snapshot.hasData);
-                                      return Text(snapshot.error.toString());
-                                    }
-                                    return Center(
-                                        child: CircularProgressIndicator());
-                                  },
-                                )),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 180.0),
                                   child: Table(

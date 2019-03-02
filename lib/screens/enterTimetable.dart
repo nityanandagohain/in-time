@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:in_time/utils/activity_model.dart';
 import 'package:in_time/screens/homePage.dart';
-// import 'package:datetime_picker_formfield/time_picker_formfield.dart';
-// import 'package:intl/intl.dart';
+import 'package:datetime_picker_formfield/time_picker_formfield.dart';
+import 'package:intl/intl.dart';
 
 class TimeTableMenu extends StatefulWidget {
   @override
@@ -75,22 +75,22 @@ class TimeTableMenuState extends State<TimeTableMenu> {
                       print(dayName);
                     },
                   ),
-                  // TimePickerFormField(
-                  //   format: DateFormat("h:mma"),
-                  //   decoration: InputDecoration(labelText: "Start Time"),
-                  //   onChanged: (time) {
-                  //     print("Start Time: $time");
-                  //     startTime = time;
-                  //   },
-                  // ),
-                  // TimePickerFormField(
-                  //   format: DateFormat("h:mma"),
-                  //   decoration: InputDecoration(labelText: "End Time"),
-                  //   onChanged: (time) {
-                  //     print("End Time: $time");
-                  //     endTime = time;
-                  //   },
-                  // ),
+                  TimePickerFormField(
+                    format: DateFormat("h:mma"),
+                    decoration: InputDecoration(labelText: "Start Time"),
+                    onChanged: (time) {
+                      print("Start Time: $time");
+                      startTime = time;
+                    },
+                  ),
+                  TimePickerFormField(
+                    format: DateFormat("h:mma"),
+                    decoration: InputDecoration(labelText: "End Time"),
+                    onChanged: (time) {
+                      print("End Time: $time");
+                      endTime = time;
+                    },
+                  ),
                   TextField(
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(hintText: "Activity Name"),

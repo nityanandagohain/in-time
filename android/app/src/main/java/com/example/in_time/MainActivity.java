@@ -1,4 +1,4 @@
-package com.example.intime;
+package com.example.in_time;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

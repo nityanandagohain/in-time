@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
+import 'dart:async';
 
-import 'usermanagement.dart';
+import 'package:in_time/utils/usermanagement.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -209,22 +210,22 @@ class _SignUpPageState extends State<SignUpPage> {
             print(e);
           });
         } else {
-          Fluttertoast.showToast(
-              msg: "Password length too short",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.grey[700],
-              textColor: Colors.white);
+          // Fluttertoast.showToast(
+          //     msg: "Password length too short",
+          //     toastLength: Toast.LENGTH_SHORT,
+          //     gravity: ToastGravity.BOTTOM,
+          //     timeInSecForIos: 1,
+          //     backgroundColor: Colors.grey[700],
+          //     textColor: Colors.white);
         }
       } else {
-        Fluttertoast.showToast(
-            msg: "Password Did not Match",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[700],
-            textColor: Colors.white);
+        // Fluttertoast.showToast(
+        //     msg: "Password Did not Match",
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.BOTTOM,
+        //     timeInSecForIos: 1,
+        //     backgroundColor: Colors.grey[700],
+        //     textColor: Colors.white);
       }
     } else {
       // validation error

@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'In Time',
+        title: 'In Time', 
         home: (FirebaseAuth.instance.currentUser() == null)
             ? LoginPage()
             : HomePage(),

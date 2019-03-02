@@ -53,7 +53,7 @@ upstream        https://github.com/nityanandagohain/in-time (push)
 * Click on Add Project   
 * Add name, accept the terms and click on Create Project  
 * Go to 'Add Firebase to your Android App'  
-    * Enter Package name as `com.example.intime`
+    * Enter Package name as `com.example.in_time`
     * Add your SHA-1 key (click on the question mark near it and follow the steps to find your SHA-1 key)
     * Download Config file `google.services.json`
     * Follow the rest of the steps

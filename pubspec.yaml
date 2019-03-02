@@ -6,20 +6,17 @@ description: A new Flutter project.
 # followed by an optional build number separated by a +.
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
-# Read more about versioning at semver.org.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  firebase_auth: 0.7.0
-  http:
-  google_sign_in: 3.3.0
-  fluttertoast:
-  cloud_firestore: 0.8.2+3
-  rxdart:
-  datetime_picker_formfield: 
   flutter:
     sdk: flutter
 
@@ -28,6 +25,11 @@ dependencies:
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
+  firebase_auth: ^0.8.1+4
+  google_sign_in: ^4.0.1+1
+  # fluttertoast: ^3.0.1
+  cloud_firestore: ^0.9.5+2
+  # datetime_picker_formfield: ^0.1.8
   flutter_test:
     sdk: flutter
 

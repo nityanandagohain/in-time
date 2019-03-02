@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:in_time/utils/custom_loader.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
+
+import 'package:in_time/screens/custom_loader.dart';
+
 
 class LoginPage extends StatefulWidget {
   @override
@@ -236,22 +237,22 @@ class _LoginPageState extends State<LoginPage> {
             default:
               print('Case ${e.message} is not jet implemented');
           }
-          Fluttertoast.showToast(
-              msg: errorType.toString(),
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.grey[700],
-              textColor: Colors.white);
+          // Fluttertoast.showToast(
+          //     msg: errorType.toString(),
+          //     toastLength: Toast.LENGTH_SHORT,
+          //     gravity: ToastGravity.BOTTOM,
+          //     timeInSecForIos: 1,
+          //     backgroundColor: Colors.grey[700],
+          //     textColor: Colors.white);
         });
       } else {
-        Fluttertoast.showToast(
-            msg: "Password length too short",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[700],
-            textColor: Colors.white);
+        // Fluttertoast.showToast(
+        //     msg: "Password length too short",
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.BOTTOM,
+        //     timeInSecForIos: 1,
+        //     backgroundColor: Colors.grey[700],
+        //     textColor: Colors.white);
       }
     } else {
       // validation error

@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:in_time/screens/homePage.dart';
 import 'package:in_time/screens/loginpage.dart';
 import 'package:in_time/screens/signuppage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -24,7 +24,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'In Time', 
+        title: 'In Time',
+        theme: ThemeData(fontFamily: 'Rubik'),
         home: (FirebaseAuth.instance.currentUser() == null)
             ? LoginPage()
             : HomePage(),

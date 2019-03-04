@@ -52,6 +52,15 @@ flutter:
    - assets/img/otherpic.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
+  # Added custom font
+  fonts:
+    - family: Rubik
+      fonts:
+        - asset: fonts/Rubik-Bold.ttf
+        - asset: fonts/Rubik-Medium.ttf
+        - asset: fonts/Rubik-Regular.ttf
+          weight: 700
+
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.io/assets-and-images/#from-packages

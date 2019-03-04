@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:in_time/utils/activity_model.dart';
-import 'package:in_time/screens/homePage.dart';
 import 'package:datetime_picker_formfield/time_picker_formfield.dart';
+import 'package:flutter/material.dart';
+import 'package:in_time/screens/homePage.dart';
+import 'package:in_time/utils/activity_model.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class TimeTableMenu extends StatefulWidget {
   @override
   TimeTableMenuState createState() {
@@ -19,7 +20,7 @@ class TimeTableMenuState extends State<TimeTableMenu> {
   TextEditingController startController = new TextEditingController(text: "");
   TextEditingController endController = new TextEditingController(text: "");
   TextEditingController activityController =
-      new TextEditingController(text: "");
+  new TextEditingController(text: "");
   TextEditingController subjectController = new TextEditingController(text: "");
 
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -59,6 +60,7 @@ class TimeTableMenuState extends State<TimeTableMenu> {
               child: Column(
                 children: <Widget>[
                   DropdownButton(
+                    elevation: 8,
                     items: _days.map((String x) {
                       return DropdownMenuItem(
                         value: x,
@@ -66,26 +68,30 @@ class TimeTableMenuState extends State<TimeTableMenu> {
                       );
                     }).toList(),
                     value: dayName,
-                    hint: Text("Day"),
+                    hint: Text("Choose a day"),
                     onChanged: (x) {
                       setState(() {
                         dayName = x;
                       });
-
                       print(dayName);
                     },
                   ),
+                  // ignore: deprecated_member_use
                   TimePickerFormField(
                     format: DateFormat("h:mma"),
-                    decoration: InputDecoration(labelText: "Start Time"),
+                    decoration: InputDecoration(labelText: "Start Time",
+                      icon: Icon(Icons.access_time),
+                    ),
                     onChanged: (time) {
                       print("Start Time: $time");
                       startTime = time;
                     },
                   ),
+                  // ignore: deprecated_member_use
                   TimePickerFormField(
                     format: DateFormat("h:mma"),
-                    decoration: InputDecoration(labelText: "End Time"),
+                    decoration: InputDecoration(labelText: "End Time",
+                        icon: Icon(Icons.access_time)),
                     onChanged: (time) {
                       print("End Time: $time");
                       endTime = time;
@@ -93,7 +99,8 @@ class TimeTableMenuState extends State<TimeTableMenu> {
                   ),
                   TextField(
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(hintText: "Activity Name"),
+                    decoration: InputDecoration(hintText: "Activity Name",
+                        icon: Icon(Icons.local_activity)),
                     controller: activityController,
                     onSubmitted: (x) {
                       print("Activity: " + x);
@@ -103,12 +110,15 @@ class TimeTableMenuState extends State<TimeTableMenu> {
                   SizedBox(
                     height: 10.0,
                   ),
-                  RaisedButton(
-                    child: Text("Add to current day"),
+                  FlatButton(
                     onPressed: () {
                       addToActivityList();
                     },
-                  )
+
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    child: Text("Add to current day"),
+                  ),
                 ],
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:datetime_picker_formfield/time_picker_formfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:in_time/screens/homePage.dart';
 import 'package:in_time/utils/activity_model.dart';
 import 'package:intl/intl.dart';
@@ -59,7 +60,14 @@ class TimeTableMenuState extends State<TimeTableMenu> {
             child: Container(
               child: Column(
                 children: <Widget>[
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   DropdownButton(
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .subhead,
                     elevation: 8,
                     items: _days.map((String x) {
                       return DropdownMenuItem(
@@ -76,11 +84,19 @@ class TimeTableMenuState extends State<TimeTableMenu> {
                       print(dayName);
                     },
                   ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   // ignore: deprecated_member_use
                   TimePickerFormField(
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .body2,
                     format: DateFormat("h:mma"),
                     decoration: InputDecoration(labelText: "Start Time",
                       icon: Icon(Icons.access_time),
+                      contentPadding: const EdgeInsets.all(20.0),
                     ),
                     onChanged: (time) {
                       print("Start Time: $time");
@@ -89,18 +105,30 @@ class TimeTableMenuState extends State<TimeTableMenu> {
                   ),
                   // ignore: deprecated_member_use
                   TimePickerFormField(
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .body2,
                     format: DateFormat("h:mma"),
                     decoration: InputDecoration(labelText: "End Time",
-                        icon: Icon(Icons.access_time)),
+                      icon: Icon(Icons.access_time),
+                      contentPadding: const EdgeInsets.all(20.0),
+                    ),
                     onChanged: (time) {
                       print("End Time: $time");
                       endTime = time;
                     },
                   ),
                   TextField(
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .body2,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(hintText: "Activity Name",
-                        icon: Icon(Icons.local_activity)),
+                      icon: Icon(Icons.local_activity),
+                      contentPadding: const EdgeInsets.all(20.0),
+                    ),
                     controller: activityController,
                     onSubmitted: (x) {
                       print("Activity: " + x);
@@ -108,17 +136,18 @@ class TimeTableMenuState extends State<TimeTableMenu> {
                     },
                   ),
                   SizedBox(
-                    height: 10.0,
+                    height: 30.0,
                   ),
-                  FlatButton(
+                  OutlineButton(
                     onPressed: () {
                       addToActivityList();
                     },
-
-                    color: Colors.blue,
-                    textColor: Colors.white,
+                    borderSide: BorderSide(width: 3.0, color: Colors.blue),
                     child: Text("Add to current day"),
-                  ),
+                    highlightedBorderColor: Colors.blue.shade500,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                  )
                 ],
               ),
             ),
@@ -135,6 +164,13 @@ class TimeTableMenuState extends State<TimeTableMenu> {
       ),
     );
   }
+
+  // TODO: START WORKING FROM HERE
+  final String assetName = 'assets/vector/notebook_man.svg';
+  final Widget svg = new SvgPicture.asset(
+      assetName,
+      semanticsLabel: 'Notebook man'
+  );
 
   Widget subjectDialog() {
     return SimpleDialog(

@@ -1,6 +1,5 @@
 import 'package:datetime_picker_formfield/time_picker_formfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:in_time/screens/homePage.dart';
 import 'package:in_time/utils/activity_model.dart';
 import 'package:intl/intl.dart';
@@ -42,7 +41,6 @@ class TimeTableMenuState extends State<TimeTableMenu> {
 
   List<String> subjectList = new List();
   List<Activities> activityList = new List();
-
   @override
   void initState() {
     super.initState();
@@ -51,6 +49,7 @@ class TimeTableMenuState extends State<TimeTableMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text("Enter timetable"),
       ),
@@ -147,7 +146,16 @@ class TimeTableMenuState extends State<TimeTableMenu> {
                     highlightedBorderColor: Colors.blue.shade500,
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
-                  )
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Image.asset('assets/img/student.jpg',
+                    width: 400,
+                    height: 250,
+                    alignment: Alignment.center,
+                    filterQuality: FilterQuality.high,
+                  ),
                 ],
               ),
             ),
@@ -165,12 +173,13 @@ class TimeTableMenuState extends State<TimeTableMenu> {
     );
   }
 
-  // TODO: START WORKING FROM HERE
-  final String assetName = 'assets/vector/notebook_man.svg';
-  final Widget svg = new SvgPicture.asset(
-      assetName,
-      semanticsLabel: 'Notebook man'
-  );
+  // TODO: TRY TO ADD SVG
+//  final String assetName = 'assets/up_arrow.svg';
+//  final Widget svgIcon = new SvgPicture.asset(
+//      assetName,
+//      color: Colors.red,
+//      semanticsLabel: 'A red up arrow'
+//  );
 
   Widget subjectDialog() {
     return SimpleDialog(

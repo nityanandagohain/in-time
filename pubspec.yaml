@@ -52,7 +52,8 @@ flutter:
    - assets/img/bg.png
    - assets/img/mainpic.png
    - assets/img/otherpic.png
-   - assets/vector/notebook_man.svg
+   - assets/img/student.jpg
+  #   - assets/vector/notebook_man.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
   # Added custom font

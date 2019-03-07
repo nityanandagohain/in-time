@@ -23,6 +23,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  # Added dependency to add SVG
+  flutter_svg: ^0.12.0
 
 dev_dependencies:
   firebase_auth: ^0.8.1+4
@@ -50,8 +52,19 @@ flutter:
    - assets/img/bg.png
    - assets/img/mainpic.png
    - assets/img/otherpic.png
+   - assets/img/student.jpg
+  #   - assets/vector/notebook_man.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
+  # Added custom font
+  fonts:
+    - family: Rubik
+      fonts:
+        - asset: assets/fonts/Rubik-Bold.ttf
+        - asset: assets/fonts/Rubik-Medium.ttf
+        - asset: assets/fonts/Rubik-Regular.ttf
+          weight: 700
+
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.io/assets-and-images/#from-packages

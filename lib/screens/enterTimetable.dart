@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:in_time/utils/activity_model.dart';
-import 'package:in_time/screens/homePage.dart';
 import 'package:datetime_picker_formfield/time_picker_formfield.dart';
+import 'package:flutter/material.dart';
+import 'package:in_time/screens/homePage.dart';
+import 'package:in_time/utils/activity_model.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class TimeTableMenu extends StatefulWidget {
   @override
   TimeTableMenuState createState() {
@@ -19,7 +20,7 @@ class TimeTableMenuState extends State<TimeTableMenu> {
   TextEditingController startController = new TextEditingController(text: "");
   TextEditingController endController = new TextEditingController(text: "");
   TextEditingController activityController =
-      new TextEditingController(text: "");
+  new TextEditingController(text: "");
   TextEditingController subjectController = new TextEditingController(text: "");
 
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -40,7 +41,6 @@ class TimeTableMenuState extends State<TimeTableMenu> {
 
   List<String> subjectList = new List();
   List<Activities> activityList = new List();
-
   @override
   void initState() {
     super.initState();
@@ -49,6 +49,7 @@ class TimeTableMenuState extends State<TimeTableMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text("Enter timetable"),
       ),
@@ -58,7 +59,15 @@ class TimeTableMenuState extends State<TimeTableMenu> {
             child: Container(
               child: Column(
                 children: <Widget>[
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   DropdownButton(
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .subhead,
+                    elevation: 8,
                     items: _days.map((String x) {
                       return DropdownMenuItem(
                         value: x,
@@ -66,34 +75,59 @@ class TimeTableMenuState extends State<TimeTableMenu> {
                       );
                     }).toList(),
                     value: dayName,
-                    hint: Text("Day"),
+                    hint: Text("Choose a day"),
                     onChanged: (x) {
                       setState(() {
                         dayName = x;
                       });
-
                       print(dayName);
                     },
                   ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  // ignore: deprecated_member_use
                   TimePickerFormField(
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .body2,
                     format: DateFormat("h:mma"),
-                    decoration: InputDecoration(labelText: "Start Time"),
+                    decoration: InputDecoration(labelText: "Start Time",
+                      icon: Icon(Icons.access_time),
+                      contentPadding: const EdgeInsets.all(20.0),
+                    ),
                     onChanged: (time) {
                       print("Start Time: $time");
                       startTime = time;
                     },
                   ),
+                  // ignore: deprecated_member_use
                   TimePickerFormField(
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .body2,
                     format: DateFormat("h:mma"),
-                    decoration: InputDecoration(labelText: "End Time"),
+                    decoration: InputDecoration(labelText: "End Time",
+                      icon: Icon(Icons.access_time),
+                      contentPadding: const EdgeInsets.all(20.0),
+                    ),
                     onChanged: (time) {
                       print("End Time: $time");
                       endTime = time;
                     },
                   ),
                   TextField(
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .body2,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(hintText: "Activity Name"),
+                    decoration: InputDecoration(hintText: "Activity Name",
+                      icon: Icon(Icons.local_activity),
+                      contentPadding: const EdgeInsets.all(20.0),
+                    ),
                     controller: activityController,
                     onSubmitted: (x) {
                       print("Activity: " + x);
@@ -101,14 +135,27 @@ class TimeTableMenuState extends State<TimeTableMenu> {
                     },
                   ),
                   SizedBox(
-                    height: 10.0,
+                    height: 30.0,
                   ),
-                  RaisedButton(
-                    child: Text("Add to current day"),
+                  OutlineButton(
                     onPressed: () {
                       addToActivityList();
                     },
-                  )
+                    borderSide: BorderSide(width: 3.0, color: Colors.blue),
+                    child: Text("Add to current day"),
+                    highlightedBorderColor: Colors.blue.shade500,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Image.asset('assets/img/student.jpg',
+                    width: 400,
+                    height: 250,
+                    alignment: Alignment.center,
+                    filterQuality: FilterQuality.high,
+                  ),
                 ],
               ),
             ),
@@ -125,6 +172,14 @@ class TimeTableMenuState extends State<TimeTableMenu> {
       ),
     );
   }
+
+  // TODO: TRY TO ADD SVG
+//  final String assetName = 'assets/up_arrow.svg';
+//  final Widget svgIcon = new SvgPicture.asset(
+//      assetName,
+//      color: Colors.red,
+//      semanticsLabel: 'A red up arrow'
+//  );
 
   Widget subjectDialog() {
     return SimpleDialog(

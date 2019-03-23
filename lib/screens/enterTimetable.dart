@@ -48,6 +48,9 @@ class TimeTableMenuState extends State<TimeTableMenu> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      dayName = _days[DateTime.now().weekday - 1];
+    });
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(

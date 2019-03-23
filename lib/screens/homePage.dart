@@ -3,7 +3,7 @@ import 'dart:core';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:in_time/utils/activity_model.dart';
-import 'package:in_time/screens/enterTimeTable.dart';
+import 'package:in_time/screens/enterTimetable.dart';
 import 'package:flutter/widgets.dart';
 
 //drawer
